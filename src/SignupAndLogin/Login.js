@@ -36,7 +36,7 @@ const Login = (props) => {
 
   const fetchCompanyInfo = async () => {
     const res = await axios
-    .get(`${constants.baseUrl}/test`).then((res)=> {
+    .get(`${constants.baseUrl}/users`).then((res)=> {
      
         dispatch(setIsConnected("connected"))
         // dispatch(setCompanyInfo(res.data.data))
@@ -159,7 +159,7 @@ const Login = (props) => {
         style={{
           width: "290px",
           fontSize: "20px",
-          backgroundColor: isConnected !== "no connection" ? "#2F49D1" : "lightgray",
+          backgroundColor: isConnected !== "no connection" ? "#19274B" : "lightgray",
           fontWeight: "600",
           color: "white",
           height: "40px",

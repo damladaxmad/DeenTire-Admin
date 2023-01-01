@@ -16,6 +16,7 @@ const Users = (props) => {
     { title: "Employee Name", field: "name", width: "4%" },
     { title: "Username", field: "username" },
     { title: "User Password", field: "Password" },
+    { title: "User Fee", field: "fee" },
   ]
 
   const parentDivStyle = { display: "flex", alignItems: "center",

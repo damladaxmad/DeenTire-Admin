@@ -33,6 +33,8 @@ module.exports = {
    "Order Lists", "Assign Order", "Finish Order",
         "Take Order", "Cancel Order",
    "New Order",
+   "Charge User",
+   "Disable User"
   ],
 };
 

@@ -98,7 +98,7 @@ const ResetUser = (props) => {
           style={{
             width: "190px",
             fontSize: "16px",
-            backgroundColor: "#2F49D1",
+            background: "#19274B",
             color: "white",
           }}
           type="submit"

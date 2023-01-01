@@ -102,7 +102,7 @@ const EditProfile = (props) => {
           style={{
             width: "290px",
             fontSize: "16px",
-            backgroundColor: "#2F49D1",
+            backgroundColor: "#19274B",
             color: "white",
           }}
           type="submit"

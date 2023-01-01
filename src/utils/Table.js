@@ -156,6 +156,28 @@ const Table = (props) => {
             Reset User
           </MenuItem>
         )}
+        {props.name == "User" && (
+          <MenuItem
+            onClick={() => {
+              if (activeUser.privillages.includes("Reset User"))
+                showUserModal();
+              else alert("You have no access");
+            }}
+          >
+            Charge User
+          </MenuItem>
+        )}
+        {props.name == "User" && (
+          <MenuItem
+            onClick={() => {
+              if (activeUser.privillages.includes("Reset User"))
+                showUserModal();
+              else alert("You have no access");
+            }}
+          >
+            Disable User
+          </MenuItem>
+        )}
 
    
      {props.name == "Employee" && (
@@ -169,7 +191,7 @@ const Table = (props) => {
           </MenuItem>
         )}
 
-        {props.name !== "Customer" && (
+        {/* {props.name !== "Customer" && (
           <MenuItem
             onClick={() => {
               if (activeUser.privillages.includes(`Delete ${props.name}`))
@@ -179,7 +201,7 @@ const Table = (props) => {
           >
             Delete {props.name}
           </MenuItem>
-        )}
+        )} */}
 
         {(props.name == "Employee" ||
           props.name == "Styles" ||

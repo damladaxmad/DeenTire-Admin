@@ -17,6 +17,7 @@ const Adminstration = () => {
     { label: "Enter Name", type: "text", name: "name" },
     { label: "Enter username", type: "text", name: "username" },
     { label: "Enter Password", type: "password", name: "password" },
+    { label: "Enter Fee", type: "number", name: "fee" },
   ];
 
   const statusArr = ["All", "Active", "Inactive"]
@@ -87,7 +88,7 @@ const Adminstration = () => {
           style={{
             width: "250px",
             fontSize: "14px",
-            backgroundColor: "#2F49D1",
+            backgroundColor: "#19274B",
             color: "white",
             height: "40px"
           }}

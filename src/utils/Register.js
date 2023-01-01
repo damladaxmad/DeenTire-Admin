@@ -99,7 +99,7 @@ const Register = (props) => {
  
   return (
     <Modal onClose = {props.hideModal} pwidth = {props.name == "Expense" ?"630px" : "450px"}
-    left = {props.name == "Expense" ? "32%" : "35%"}>
+    left = {props.name == "Expense" ? "32%" : "35%"} top = "26%">
        <div
         style={{
           display: "flex",
@@ -173,7 +173,7 @@ const Register = (props) => {
           style={{
             width: "290px",
             fontSize: "16px",
-            backgroundColor: "#2F49D1",
+            backgroundColor: "#19274B",
             color: "white",
             marginLeft: props.name == "Expense" && "200px"
           }}

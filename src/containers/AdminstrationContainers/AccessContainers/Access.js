@@ -254,7 +254,7 @@ const Access = () => {
 
         <Button
           style={{
-            backgroundColor: "#2F49D1",
+            backgroundColor: "#19274B",
             fontSize: "18px",
             fontWeight: "550",
             color: "white",

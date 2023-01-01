@@ -10,6 +10,7 @@ import Top5DeenCustomers from "../containers/DashboardContainers/Customer/Top5De
 import { setDashboard } from "../redux/actions/dashboardActions";
 import useFetch from "../funcrions/DataFetchers";
 import Top5OrderCustomers from "../containers/DashboardContainers/Customer/Top5OrderCustomers";
+import { read } from "original-fs";
 
 const Dashboard = () => {
   const dashboard = useSelector((state) => state.dashboard.dashboard);
@@ -19,14 +20,10 @@ const Dashboard = () => {
   dispatch(setDashboard(useFetch("dashboard", state, "dashboard")))
 
   const myDate = [
-    {label: "sample", value: 0, isMoney: false},
-    {label: "sample", value: 0, isMoney: false},
-    {label: "sample", value: 0, isMoney: false},
-    {label: "sample", value: 0, isMoney: false},
-    {label: "sample", value: 0, isMoney: false},
-    {label: "sample", value: 0, isMoney: false},
-    {label: "sample", value: 0, isMoney: false},
-    {label: "sample", value: 0, isMoney: false},
+    {label: "total users", value: 100, isMoney: false},
+    {label: "recievable", value: 20, isMoney: false},
+    {label: "net profit", value: 400, isMoney: false},
+    {label: "total fee", value: 600, isMoney: false},
  
 ]
 

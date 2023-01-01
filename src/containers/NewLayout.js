@@ -37,7 +37,7 @@ const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
-  background: "#0061F7",
+  background: "white",
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -46,12 +46,13 @@ const openedMixin = (theme) => ({
 });
 
 const closedMixin = (theme) => ({
+  background: "white",
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
   overflowX: 'hidden',
-  background: "#0061F7",
+  background: "white",
   width: `calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up('sm')]: {
     width: `calc(${theme.spacing(8)} + 1px)`,
@@ -81,6 +82,7 @@ const AppBar = styled(MuiAppBar, {
   ...(open && {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
+   
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -114,7 +116,7 @@ const useStyles = makeStyles((theme) => {
         padding: "0px 15px",
       },
       inActive: {
-        opacity: 0.7,
+        opacity: 0.6,
         padding: "0px 15px",
         height: "40px",
       }, 
@@ -123,7 +125,7 @@ const useStyles = makeStyles((theme) => {
         width: drawerWidth,
         color: "#FFFFFF",
         fontSize: "5px",
-        background: "#0061F7",
+        background: "#0DCBDE",
       },
   
     };
@@ -133,13 +135,13 @@ const useStyles = makeStyles((theme) => {
 const menuItems = [
     {
       text: "Dashboard",
-      icon: <DashboardIcon style={{fontSize: "20px", color: "white" }} />,
+      icon: <DashboardIcon style={{fontSize: "20px", color: "#130F26" }} />,
       path: "/dashboard",
     },
  
     {
       text: "Adminstration",
-      icon: <MdAdminPanelSettings style={{fontSize: "20px", color: "white" }} />,
+      icon: <MdAdminPanelSettings style={{fontSize: "20px", color: "#130F26" }} />,
       path: "/adminstration",
     },
   
@@ -228,16 +230,16 @@ export default function NewLayout({children}) {
         >
 
           <Typography  style = {{fontSize:"18px",
-        color: "white", fontWeight: "600", marginLeft: "12px"}}>
-          Xidig Tailor
+        color: "#19274B", fontWeight: "600", marginLeft: "12px"}}>
+         DeenTire Admin
             {/* {companyInfo ? companyInfo?.name?.substring(0, 13) : "Company Name"}{companyInfo ? companyInfo?.name?.length <= 12 ? null : "..." : null} */}
           </Typography>
          
        
           <IconButton onClick={handleDrawerClose} >
             {theme.direction === 'rtl' ? <MdMenuOpen 
-            style={{color: "#80B0FB", fontSize: "15px"}}/> : <MdMenuOpen 
-            style={{color: "#80B0FB"}}/>}
+            style={{color: "#19274B", fontSize: "15px"}}/> : <MdMenuOpen 
+            style={{color: "#19274B"}}/>}
           </IconButton>
           </div>
         </DrawerHeader>
@@ -265,7 +267,7 @@ export default function NewLayout({children}) {
             >
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} 
-              style = {{color: location.pathname == item.path ? "white" : "#80B0FB"}}/>
+              style = {{color: location.pathname == item.path ? "#171717;" : "#19274B"}}/>
             </ListItem>
             }
       })}
