@@ -42,7 +42,7 @@ const Adminstration = () => {
   }
 
   const dispatch = useDispatch()
-  dispatch(setUsers(useFetch("users", change, "users")))
+  dispatch(setUsers(useFetch("users/users-with-transactions", change, "users")))
   useEffect(() => {
     console.log(`chang is happening ${change}`)
   })

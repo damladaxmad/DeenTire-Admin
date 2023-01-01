@@ -8,25 +8,18 @@ import { useFormik } from "formik";
 import axios from "axios";
 import { constants } from "../../../Helpers/constantsFile";
 
-const ResetUser = (props) => {
+const ChargeUser = (props) => {
 
   const arr = [
-    { label: "Enter Name", type: "text", name: "name" },
-    { label: "Enter username", type: "text", name: "username" },
-    { label: "Enter Password", type: "password", name: "password" },
-    { label: "Enter Fee", type: "number", name: "fee" },
+    { label: "Enter Description", type: "text", name: "description" },
+
   ];
 
   const validate = (values) => {
     const errors = {};
    
-    if (!values.username) {
-      errors.username = "Field is Required";
-    }
-  
-
-    if (!values.password) {
-      errors.password = "Field is Required";
+    if (!values.description) {
+      errors.description = "Field is Required";
     }
 
     return errors;
@@ -34,14 +27,15 @@ const ResetUser = (props) => {
 
   const formik = useFormik({
     initialValues: {
-      username: props.user.username,
-      password: "",
-      name: `${props.user.name} `
+      client: props.user.id,
+      user: "Super User",
+      description: null,
+      debit: props.user.fee
     },
     validate,
     onSubmit: (values, { resetForm }) => {
-        axios.patch(`${constants.baseUrl}/users/${props.user._id}`, values).then((res) => {
-             alert("Successfully Updated")
+        axios.post(`${constants.baseUrl}/transactions`, values).then((res) => {
+             alert("Successfully Charged User")
              resetForm();
              props.hideModal();
              props.change()
@@ -65,7 +59,7 @@ const ResetUser = (props) => {
           gap: "15px"
         }}
       >
-        <h2>Reset User </h2>
+        <h2>Charge User </h2>
      
 
         <form
@@ -105,7 +99,7 @@ const ResetUser = (props) => {
           type="submit"
           variant="contained"
         >
-          Reset User
+          Charge User
         </Button>
       </form>
 
@@ -114,4 +108,4 @@ const ResetUser = (props) => {
   );
 };
 
-export default ResetUser;
+export default ChargeUser;

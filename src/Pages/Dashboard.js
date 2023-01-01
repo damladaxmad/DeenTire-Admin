@@ -51,12 +51,12 @@ const Dashboard = () => {
           flexWrap: "wrap",
         }}
       >
-        {dashboard?.summary.map((d, index) => (
+        {dashboard?.overview.map((d, index) => (
           <StatCard value={d} key={index} type = "summary"/>
         ))}
-        {!dashboard?.summary && myDate.map((d, index) => (
+        {/* {!dashboard?.overview.map((d, index) => (
           <StatCard value={d} key={index} type = "summary"/>
-        ))}
+        ))} */}
 
       </div>
 

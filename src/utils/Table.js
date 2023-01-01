@@ -14,6 +14,7 @@ import { constants } from "../Helpers/constantsFile";
 import { deleteFunction } from "../funcrions/deleteStuff";
 import ResetUser from "../containers/AdminstrationContainers/UsersContainer/ResetUser";
 import { useNavigate, useLocation } from "react-router-dom";
+import ChargeUser from "../containers/AdminstrationContainers/UsersContainer/ChargeUser";
 
 const Table = (props) => {
   const tableIcons = {
@@ -30,6 +31,7 @@ const Table = (props) => {
   const [userShow, setUserShow] = useState(false);
   const [cVModal, setCVmodal] = useState(false);
   const [instance, setInstance] = useState("");
+  const [showChargeModal, setShowChargeModal] = useState(false)
   const activeUser = useSelector((state) => state.activeUser.activeUser);
   const navigate = useNavigate();
   const dispatch = useDispatch()
@@ -121,6 +123,12 @@ const Table = (props) => {
         />
       )}
 
+        {showChargeModal && <ChargeUser  hideModal={() => {
+          setShowChargeModal(false)
+        }}
+          user={instance}
+          change={() => props.change()}
+        />}
   
 
       <Menu
@@ -160,7 +168,10 @@ const Table = (props) => {
           <MenuItem
             onClick={() => {
               if (activeUser.privillages.includes("Reset User"))
-                showUserModal();
+                {
+                  setShowChargeModal(true);
+                  handleClose()
+                }
               else alert("You have no access");
             }}
           >

@@ -6,6 +6,7 @@ import axios from "axios";
 import { setUsers } from "../../../redux/actions/usersActions";
 import useFetch from "../../../funcrions/DataFetchers";
 import Table from "../../../utils/Table";
+import moment from "moment/moment";
 
 const Users = (props) => {
 
@@ -15,8 +16,10 @@ const Users = (props) => {
   const columns = [
     { title: "Employee Name", field: "name", width: "4%" },
     { title: "Username", field: "username" },
-    { title: "User Password", field: "Password" },
+    { title: "Created Date", field: "created_at", render: (data)=> <p> {
+      moment(data.created_at).format("DD/MM/YYYY")}</p> },
     { title: "User Fee", field: "fee" },
+    { title: "Balance", field: "balance",  },
   ]
 
   const parentDivStyle = { display: "flex", alignItems: "center",
@@ -46,7 +49,7 @@ const Users = (props) => {
     setStatus(e.target.value)
   }
 
-  dispatch(setUsers(useFetch("users", force, "users")))
+  dispatch(setUsers(useFetch("users/users-with-transactions", force, "users")))
 
   const handler = (data) => { 
     if (data?.length > 0) {
