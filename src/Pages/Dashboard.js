@@ -68,82 +68,24 @@ const Dashboard = () => {
           marginTop: "40px",
         }}
       >
-        {" "}
-        Weekly Statistics
-      </Typography>
-
-      <div
-        style={{
-          display: "flex",
-          width: "97.5%",
-          justifyContent: "space-between",
-        }}
-      >
-        <WeeklyChart data={dashboard?.weekly?.weeklyOrders} />
-        <OrderUpdates data={dashboard?.weekly?.newOrderUpdates} />
-        <RevenueStats data={dashboard?.weekly?.revenueStats} />
-      </div>
-
-      <Typography
-        style={{
-          fontWeight: "600",
-          color: "#928E8E",
-          fontSize: "25px",
-          marginTop: "40px",
-        }}
-      >
         Monthly Statistics
       </Typography>
 
       <div
         style={{
           display: "flex",
-          width: "98.5%",
-          gap: "50px",
+          gap: "20px",
+          width: "100%",
           flexWrap: "wrap",
         }}
       >
-        <Top5Employees data={dashboard?.monthly?.top5Employees} />
+        {dashboard?.thisMonth.map((d, index) => (
+          <StatCard value={d} key={index} type = "month"/>
+        ))}
+        {/* {!dashboard?.overview.map((d, index) => (
+          <StatCard value={d} key={index} type = "summary"/>
+        ))} */}
 
-        <div
-          style={{
-            display: "flex",
-            gap: "30px",
-            width: "50%",
-            flexWrap: "wrap",
-          }}
-        >
-          <StatCard
-            value={{
-              label: "orders",
-              value: dashboard?.monthly?.thisMonthOrders,
-              isMoney: false,
-            }}
-          />
-          <StatCard
-            value={{
-              label: "revenue",
-              value: dashboard?.monthly?.revenue,
-              isMoney: true,
-            }}
-          />
-           <StatCard
-            value={{
-              label: "recievable",
-              value: dashboard?.monthly?.recievable,
-              isMoney: true,
-            }}
-          />
-
-          <StatCard
-            value={{
-              label: "net profit",
-              value:
-                dashboard?.monthly?.revenue - dashboard?.monthly?.recievable,
-              isMoney: true,
-            }}
-          />
-        </div>
       </div>
 
       <Typography
@@ -154,7 +96,7 @@ const Dashboard = () => {
           marginTop: "40px",
         }}
       >
-        Customer Statistics
+        User Statistics
       </Typography> 
 
          <div
@@ -165,8 +107,8 @@ const Dashboard = () => {
           flexWrap: "wrap",
         }}
       >
-        <Top5DeenCustomers data={dashboard?.other?.top5Customers} /> 
-        <Top5OrderCustomers data={dashboard?.other?.top5CustomersByOrder} /> 
+        <Top5DeenCustomers  /> 
+        <Top5OrderCustomers  /> 
         </div>
     </div>
   );

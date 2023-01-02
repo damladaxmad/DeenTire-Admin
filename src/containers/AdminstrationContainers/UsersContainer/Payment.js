@@ -8,18 +8,18 @@ import { useFormik } from "formik";
 import axios from "axios";
 import { constants } from "../../../Helpers/constantsFile";
 
-const ChargeUser = (props) => {
+const Payment = (props) => {
 
   const arr = [
-    { label: "Enter Description", type: "text", name: "description" },
+    { label: "Enter Credit", type: "number", name: "credit" },
 
   ];
 
   const validate = (values) => {
     const errors = {};
    
-    if (!values.description) {
-      errors.description = "Field is Required";
+    if (!values.credit) {
+      errors.credit = "Field is Required";
     }
 
     return errors;
@@ -29,14 +29,14 @@ const ChargeUser = (props) => {
     initialValues: {
       client: props.user._id,
       user: "Super User",
-      description: null,
-      debit: props.user.fee
+      description: "Payment",
+      credit: null
     },
     validate,
     onSubmit: (values, { resetForm }) => {
       console.log(values)
         axios.post(`${constants.baseUrl}/transactions`, values).then((res) => {
-             alert("Successfully Charged User")
+             alert("Successfully Payed")
              resetForm();
              props.hideModal();
              props.change()
@@ -95,12 +95,13 @@ const ChargeUser = (props) => {
             width: "290px",
             fontSize: "16px",
             background: "#19274B",
+            fontWeight: "bold",
             color: "white",
           }}
           type="submit"
           variant="contained"
         >
-          Charge User
+          Pay Money
         </Button>
       </form>
 
@@ -109,4 +110,4 @@ const ChargeUser = (props) => {
   );
 };
 
-export default ChargeUser;
+export default Payment;

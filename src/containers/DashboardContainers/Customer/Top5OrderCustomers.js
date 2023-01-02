@@ -1,7 +1,8 @@
 import { Typography } from "@material-ui/core"
+import { useSelector } from "react-redux";
 
 const Top5OrderCustomers = (props) => {
-
+    const dashboard = useSelector((state) => state.dashboard.dashboard);
     console.log(props.data)
 
     return (
@@ -9,13 +10,13 @@ const Top5OrderCustomers = (props) => {
         borderRadius: "9px", display: "flex", flexDirection: "column",
         gap: "8px", width: "320px"}}>
             <Typography style = {{color: "#3245E9", fontWeight: "bold"}}>
-              Customer Orders
+              Users Fee
             </Typography>
             <Typography style = {{fontWeight: "600", fontSize: "22px"}}>
             Top order customers
             </Typography>
 
-            {props.data?.map((order, index) => {
+            {dashboard?.users[2].value?.map((order, index) => {
                 return <div style = {{display: "flex", justifyContent: "space-between"}}>
                     <div style={{display: "flex", gap: "14px",}}>
                     <Typography style = {{ fontSize: "15px",
@@ -24,7 +25,7 @@ const Top5OrderCustomers = (props) => {
                 color: "#575656"}}> {order.username} </Typography>
                     </div>
                     <Typography style = {{ fontSize: "15px",
-                color: "#575656"}}> {order.orders} </Typography>
+                color: "#575656"}}> ${order.fee} </Typography>
                 </div>
                 })}
 

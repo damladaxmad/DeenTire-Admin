@@ -25,15 +25,16 @@ const StatCard = (props) => {
     <div
       class = "myDiv"
       style={{
-        minWidth: props.type == "summary" ? "23%" : "46%",
+        minWidth: "23%",
         height: "95px",
-        background: "#FFFFFF",
+        background: props.type == "summary" ? "#19274B" : "white",
         borderRadius: "10px",
         padding: "40px 5px",
         display: "flex",
         justifyContent: "start",
         alignItems: "center",
         gap: "12px",
+        color: 'white'
         // boxShadow: "1px 1px 1px #9E9E9E"
       }}
     >
@@ -44,8 +45,8 @@ const StatCard = (props) => {
         <p
           style={{
             margin: "0px",
-            fontSize: "18px",
-            color: "#171717",
+            fontSize: "22px",
+            color: props.type == "summary" ? "white" : "black",
             fontWeight: "600",
           }}
         >

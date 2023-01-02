@@ -15,6 +15,7 @@ import { deleteFunction } from "../funcrions/deleteStuff";
 import ResetUser from "../containers/AdminstrationContainers/UsersContainer/ResetUser";
 import { useNavigate, useLocation } from "react-router-dom";
 import ChargeUser from "../containers/AdminstrationContainers/UsersContainer/ChargeUser";
+import Payment from "../containers/AdminstrationContainers/UsersContainer/Payment";
 
 const Table = (props) => {
   const tableIcons = {
@@ -32,6 +33,7 @@ const Table = (props) => {
   const [cVModal, setCVmodal] = useState(false);
   const [instance, setInstance] = useState("");
   const [showChargeModal, setShowChargeModal] = useState(false)
+  const [showPaymentModal, setShowPaymentModal] = useState(false)
   const activeUser = useSelector((state) => state.activeUser.activeUser);
   const navigate = useNavigate();
   const dispatch = useDispatch()
@@ -129,6 +131,12 @@ const Table = (props) => {
           user={instance}
           change={() => props.change()}
         />}
+        {showPaymentModal && <Payment  hideModal={() => {
+          setShowPaymentModal(false)
+        }}
+          user={instance}
+          change={() => props.change()}
+        />}
   
 
       <Menu
@@ -141,11 +149,13 @@ const Table = (props) => {
         }}
         style={{marginTop: "25px"}}
       >
-        {(props.name == "Customer" || props.name == "Vendor") && (
+        {(props.name == "User") && (
           <MenuItem
             onClick={() => {
-              if (activeUser.privillages.includes("Payment"))
-                showCustomerVendorModal();
+              if (activeUser.privillages.includes("Payment")){
+              handleClose()
+              setShowPaymentModal(true)
+              }
               else alert("You have no access!");
             }}
           >
