@@ -45,7 +45,7 @@ const StatCard = (props) => {
         <p
           style={{
             margin: "0px",
-            fontSize: "22px",
+            fontSize: "20px",
             color: props.type == "summary" ? "white" : "black",
             fontWeight: "600",
           }}

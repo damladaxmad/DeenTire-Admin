@@ -105,6 +105,26 @@ const Table = (props) => {
   };
 
 
+  const disableUser = () => {
+    handleClose()
+    axios.patch(`${constants.baseUrl}/users/${instance._id}`, {
+      status: "disabled"
+    }).then(res => {
+      alert("Succesfully Disabled User")
+      props.change()
+    })
+  }
+
+  const enableUser = () => {
+    handleClose()
+    axios.patch(`${constants.baseUrl}/users/${instance._id}`, {
+      status: "active"
+    }).then(res => {
+      alert("Succesfully Enabled User")
+      props.change()
+    })
+  }
+
 
 
   const restore = () => {
@@ -195,12 +215,12 @@ const Table = (props) => {
         {props.name == "User" && (
           <MenuItem
             onClick={() => {
-              if (activeUser.privillages.includes("Reset User"))
-                showUserModal();
+              if (activeUser.privillages.includes("Disable User"))
+                instance.status == "disabled" ? enableUser() : disableUser();
               else alert("You have no access");
             }}
           >
-            Disable User
+           {instance.status == "disabled" ? "Enable User" : "Disable User"}
           </MenuItem>
         )}
 

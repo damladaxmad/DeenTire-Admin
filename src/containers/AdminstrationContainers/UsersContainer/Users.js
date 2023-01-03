@@ -14,11 +14,13 @@ const Users = (props) => {
   const [state, setState] = useState('')
 
   const columns = [
-    { title: "Employee Name", field: "name", width: "4%" },
+    { title: "User Name", field: "name", width: "4%" },
     { title: "Username", field: "username" },
     { title: "Created Date", field: "created_at", render: (data)=> <p> {
       moment(data.created_at).format("DD/MM/YYYY")}</p> },
     { title: "User Fee", field: "fee" },
+    { title: "Status", field: "status", render: (data) => 
+    <p style = {{color: data.status == "disabled" && "red"}}> {data.status}</p>},
     { title: "Balance", field: "balance",  },
   ]
 

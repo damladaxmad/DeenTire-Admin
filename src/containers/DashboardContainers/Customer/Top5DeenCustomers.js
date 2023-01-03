@@ -15,7 +15,7 @@ const Top5DeenCustomers = (props) => {
             </Typography>
             <Typography style = {{fontWeight: "600", fontSize: "22px",
         color: "white"}}>
-            Top deen customers
+            Top Debt Users
             </Typography>
 
             {dashboard?.users[0]?.value?.map((order, index) => {

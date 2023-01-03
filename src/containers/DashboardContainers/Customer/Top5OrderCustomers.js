@@ -13,7 +13,7 @@ const Top5OrderCustomers = (props) => {
               Users Fee
             </Typography>
             <Typography style = {{fontWeight: "600", fontSize: "22px"}}>
-            Top order customers
+            Top Fee Users
             </Typography>
 
             {dashboard?.users[2].value?.map((order, index) => {
