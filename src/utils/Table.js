@@ -72,6 +72,10 @@ const Table = (props) => {
     props.showTransactions(instance)
     handleClose()
   }
+  const showCustomersFun = () => {
+    props.showCustomers(instance)
+    handleClose()
+  }
 
   const handleClick = (
     event: React.MouseEvent<HTMLButtonElement>,
@@ -238,12 +242,19 @@ const Table = (props) => {
           </MenuItem>
         )}
 
-        {(props.name == "Customer" || props.name == "Vendor")
+        {(props.name == "User")
           &&  <MenuItem onClick={() => {
           if (activeUser.privillages.includes("View Transactions"))
           showTransactionsFun()
           else alert("You have no access!")
           }}>View Transactions</MenuItem>}
+
+        {(props.name == "User")
+          &&  <MenuItem onClick={() => {
+          if (activeUser.privillages.includes("View Customers"))
+          showCustomersFun()
+          else alert("You have no access!")
+          }}>View Customers</MenuItem>}
 
         {props.name == "Customer" 
           &&  <MenuItem onClick={() => {

@@ -29,6 +29,8 @@ const ChargeUser = (props) => {
     initialValues: {
       client: props.user._id,
       user: "Super User",
+      type: "Charge",
+      transactionType: "Charge",
       description: null,
       debit: props.user.fee
     },

@@ -30,6 +30,7 @@ const Payment = (props) => {
       client: props.user._id,
       user: "Super User",
       description: "Payment",
+      transactionType: "Payment",
       credit: null
     },
     validate,

@@ -34,7 +34,9 @@ module.exports = {
         "Take Order", "Cancel Order",
    "New Order",
    "Charge User",
-   "Disable User"
+   "Disable User",
+   "Add New Users",
+   "View Customers"
   ],
 };
 

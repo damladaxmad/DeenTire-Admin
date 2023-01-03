@@ -10,6 +10,9 @@ import Register from "../utils/Register";
 import {MdAdd} from "react-icons/md"
 import { setUsers } from "../redux/actions/usersActions";
 import useFetch from "../funcrions/DataFetchers";
+import {BiArrowBack} from "react-icons/bi"
+import Transactions from "../containers/AdminstrationContainers/UsersContainer/Transactions"
+import UsersCustomers from "../containers/AdminstrationContainers/UsersContainer/UsersCustomers";
 
 const Adminstration = () => {
 
@@ -25,14 +28,30 @@ const Adminstration = () => {
 
   const [value, setValue] = React.useState("users");
   const [newUser, setNewUser] = useState(false)
+  const [showTransactions, setShowTransactions] = useState(false);
+  const [showCustomers, setShowCustomers] = useState(false)
+  const [instance, setInstance] = useState();
+  const [buttonName, setButtonName] = useState("Add New Users");
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
 
+
+
   const addHandler = () => {
-    setNewUser(true)
-  }
+    if (buttonName == "Add New Users") {
+      setNewUser(true)
+      setButtonName("Go To Users");
+      setShowTransactions(false);
+      setShowCustomers(false)
+      return;
+    } else if (buttonName == "Go To Users") {
+      setShowTransactions(false);
+      setShowCustomers(false);
+      setButtonName("Add New Users");
+    }
+  };
 
   const [change, setChange] = useState(1)
   const [myChange, setMyChange] = useState(1)
@@ -84,35 +103,65 @@ const Adminstration = () => {
             style={{ fontSize: "16px", fontWeight: "700" }} />}
           </Tabs>
         </Box>
-        {value == "users" && <Button
-          style={{
-            width: "250px",
-            fontSize: "14px",
-            backgroundColor: "#19274B",
-            color: "white",
-            height: "40px"
-          }}
-          startIcon = {
-            <MdAdd
-                style={{
-                  color: "white",
-                }}
-              />
-          }
-          variant="contained"
-          onClick={addHandler}
-        >
-         add new user
-        </Button> }
+        {value == "users" && 
+         <Button
+         variant="contained"
+         style={{
+           backgroundColor: "#19274B",
+           color: "white",
+           width: "220px",
+           fontWeight: "bold"
+         }}
+         onClick={() => {
+           if (activeUser.privillages.includes("Add New Users"))
+             addHandler();
+           else alert("You have no access!");
+         }}
+         startIcon={
+           newUser || showTransactions || showCustomers ? (
+             <BiArrowBack
+               style={{
+                 color: "white",
+               }}
+             />
+           ) : (
+             <MdAdd
+               style={{
+                 color: "white",
+               }}
+             />
+           )
+         }
+       >
+         {buttonName}
+       </Button>
+        }
 
         </div>
-    {value == "users" && <Users key = {change}/>}
+        {showTransactions && <Transactions instance={instance} name="customer" />}
+        {showCustomers && <UsersCustomers instance={instance} name="customer"/>}
+
+    {(value == "users" && !showTransactions && !showCustomers) && <Users key = {change}
+
+    showTransactions={(instance) => {
+      setShowTransactions(true);
+      setInstance(instance);
+      setButtonName("Go To Users");
+    }}
+
+    showCustomers={(instance) => {
+      setShowCustomers(true);
+      setInstance(instance);
+      setButtonName("Go To Users");
+    }}
+    />}
     {value == "access" && <Access/>}
 
     {newUser && (
         <Register
           hideModal={() => {
             setNewUser(false)
+            setButtonName("Add New Users")
           }}
           fields={fields}
           url="users"

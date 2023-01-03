@@ -80,7 +80,7 @@ const Access = () => {
      {
       name: "Adminstration",
       access: ["Adminstration", "Users", "Access", "Reset User", 
-      "Delete User"],
+      "Delete User", "View Customers"],
     },
    
      

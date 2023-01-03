@@ -96,7 +96,16 @@ const Users = (props) => {
   
       <Table data = {handler(users)} 
       change = {change} state =  {state} columns = {columns}
-      url = "users" name = "User"/>
+      url = "users" name = "User"
+      
+      showTransactions={(instance) => {
+       props.showTransactions(instance)
+      }}
+      showCustomers={(instance) => {
+       props.showCustomers(instance)
+      }}
+      />
+
       </>
   )
 }
