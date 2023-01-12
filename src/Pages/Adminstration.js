@@ -19,6 +19,7 @@ const Adminstration = () => {
   const fields  = [
     { label: "Enter Name", type: "text", name: "name" },
     { label: "Enter username", type: "text", name: "username" },
+    { label: "Enter phone", type: "number", name: "phone" },
     { label: "Enter Password", type: "password", name: "password" },
     { label: "Enter Fee", type: "number", name: "fee" },
   ];

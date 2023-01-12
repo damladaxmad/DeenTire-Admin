@@ -89,7 +89,7 @@ const Register = (props) => {
           // props.reset()
         });
         // props.change()
-          props.hideModal()
+          // props.hideModal()
           // props.reset()
       }    
     
@@ -99,7 +99,7 @@ const Register = (props) => {
  
   return (
     <Modal onClose = {props.hideModal} pwidth = {props.name == "Expense" ?"630px" : "450px"}
-    left = {props.name == "Expense" ? "32%" : "35%"} top = "26%">
+    left = {props.name == "Expense" ? "32%" : "38%"} top = "18%">
        <div
         style={{
           display: "flex",

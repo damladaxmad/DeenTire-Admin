@@ -16,6 +16,7 @@ const Users = (props) => {
   const columns = [
     { title: "User Name", field: "name", width: "4%" },
     { title: "Username", field: "username" },
+    { title: "Phone", field: "phone" },
     { title: "Created Date", field: "created_at", render: (data)=> <p> {
       moment(data.created_at).format("DD/MM/YYYY")}</p> },
     { title: "User Fee", field: "fee" },
