@@ -144,6 +144,11 @@ const menuItems = [
       icon: <MdAdminPanelSettings style={{fontSize: "20px", color: "#130F26" }} />,
       path: "/adminstration",
     },
+    {
+      text: "Calculator",
+      icon: <MdAdminPanelSettings style={{fontSize: "20px", color: "#130F26" }} />,
+      path: "/calculator",
+    },
   
 
  

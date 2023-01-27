@@ -13,6 +13,7 @@ const ResetUser = (props) => {
   const arr = [
     { label: "Enter Name", type: "text", name: "name" },
     { label: "Enter username", type: "text", name: "username" },
+    { label: "Enter Phone", type: "number", name: "phone" },
     { label: "Enter Password", type: "password", name: "password" },
     { label: "Enter Fee", type: "number", name: "fee" },
   ];
@@ -25,9 +26,9 @@ const ResetUser = (props) => {
     }
   
 
-    if (!values.password) {
-      errors.password = "Field is Required";
-    }
+    // if (!values.password) {
+    //   errors.password = "Field is Required";
+    // }
 
     return errors;
   };

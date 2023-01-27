@@ -13,11 +13,13 @@ import { setIsConnected } from "./redux/actions/isLoginActions";
 import { setDashboard } from "./redux/actions/dashboardActions";
 import useFetch from "./funcrions/DataFetchers";
 import { constants } from "./Helpers/constantsFile";
+import Calculator from "./Pages/Calculator";
 
 
 const pages = [
      <Route path= "/dashboard" element = {<Dashboard/>} />,
      <Route path= "/adminstration" element = {<Adminstration/>} />,  
+     <Route path= "/calculator" element = {<Calculator/>} />,  
 
 ]
 
