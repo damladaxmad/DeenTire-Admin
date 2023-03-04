@@ -36,7 +36,12 @@ const Payment = (props) => {
     validate,
     onSubmit: (values, { resetForm }) => {
       console.log(values)
-        axios.post(`${constants.baseUrl}/transactions`, values).then((res) => {
+        axios.post(`${constants.baseUrl}/transactions`, values
+        , {
+          headers: {
+            'authorization': constants.token
+            },
+        }).then((res) => {
              alert("Successfully Payed")
              resetForm();
              props.hideModal();

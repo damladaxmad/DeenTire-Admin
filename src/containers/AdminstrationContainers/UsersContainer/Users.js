@@ -107,6 +107,9 @@ const Users = (props) => {
       showCustomers={(instance) => {
        props.showCustomers(instance)
       }}
+      showVendors={(instance) => {
+       props.showVendors(instance)
+      }}
       />
 
       </>

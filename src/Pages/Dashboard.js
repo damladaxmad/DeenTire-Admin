@@ -17,7 +17,7 @@ const Dashboard = () => {
 
   const dispatch = useDispatch()
   const [state, setState] = useState(1)
-  dispatch(setDashboard(useFetch("dashboard", state, "dashboard")))
+  // dispatch(setDashboard(useFetch("dashboard", state, "dashboard")))
 
   const myDate = [
     {label: "total users", value: 100, isMoney: false},
@@ -28,89 +28,94 @@ const Dashboard = () => {
 ]
 
   return (
-    <div
-      id="uni"
-      style={{
-        height: "100%",
-        width: "95%",
-        margin: "0px auto",
-        display: "flex",
-        gap: "32px",
-        flexDirection: "column",
-      }}
-    >
-      <Typography style={{ fontWeight: "600", fontSize: "25px" }}>
+          <Typography style={{ fontWeight: "600", fontSize: "25px",
+          padding: "0px 20px"}}>
         {" "}
-        Dashboard{" "}
+        Dashboard is coming soon!!!
       </Typography>
-      <div
-        style={{
-          display: "flex",
-          gap: "20px",
-          width: "100%",
-          flexWrap: "wrap",
-        }}
-      >
-        {dashboard?.overview.map((d, index) => (
-          <StatCard value={d} key={index} type = "summary"/>
-        ))}
-        {/* {!dashboard?.overview.map((d, index) => (
-          <StatCard value={d} key={index} type = "summary"/>
-        ))} */}
+    // <div
+    //   id="uni"
+    //   style={{
+    //     height: "100%",
+    //     width: "95%",
+    //     margin: "0px auto",
+    //     display: "flex",
+    //     gap: "32px",
+    //     flexDirection: "column",
+    //   }}
+    // >
+    //   <Typography style={{ fontWeight: "600", fontSize: "25px" }}>
+    //     {" "}
+    //     Dashboard{" "}
+    //   </Typography>
+    //   <div
+    //     style={{
+    //       display: "flex",
+    //       gap: "20px",
+    //       width: "100%",
+    //       flexWrap: "wrap",
+    //     }}
+    //   >
+    //     {dashboard?.overview.map((d, index) => (
+    //       <StatCard value={d} key={index} type = "summary"/>
+    //     ))}
+    //     {/* {!dashboard?.overview.map((d, index) => (
+    //       <StatCard value={d} key={index} type = "summary"/>
+    //     ))} */}
 
-      </div>
+    //   </div>
 
-      <Typography
-        style={{
-          fontWeight: "600",
-          color: "#928E8E",
-          fontSize: "25px",
-          marginTop: "40px",
-        }}
-      >
-        Monthly Statistics
-      </Typography>
+    //   <Typography
+    //     style={{
+    //       fontWeight: "600",
+    //       color: "#928E8E",
+    //       fontSize: "25px",
+    //       marginTop: "40px",
+    //     }}
+    //   >
+    //     Monthly Statistics
+    //   </Typography>
 
-      <div
-        style={{
-          display: "flex",
-          gap: "20px",
-          width: "100%",
-          flexWrap: "wrap",
-        }}
-      >
-        {dashboard?.thisMonth.map((d, index) => (
-          <StatCard value={d} key={index} type = "month"/>
-        ))}
-        {/* {!dashboard?.overview.map((d, index) => (
-          <StatCard value={d} key={index} type = "summary"/>
-        ))} */}
+    //   <div
+    //     style={{
+    //       display: "flex",
+    //       gap: "20px",
+    //       width: "100%",
+    //       flexWrap: "wrap",
+    //     }}
+    //   >
+    //     {dashboard?.thisMonth.map((d, index) => (
+    //       <StatCard value={d} key={index} type = "month"/>
+    //     ))}
+    //     {/* {!dashboard?.overview.map((d, index) => (
+    //       <StatCard value={d} key={index} type = "summary"/>
+    //     ))} */}
 
-      </div>
+    //   </div>
 
-      <Typography
-        style={{
-          fontWeight: "600",
-          color: "#928E8E",
-          fontSize: "25px",
-          marginTop: "40px",
-        }}
-      >
-        User Statistics
-      </Typography> 
+    //   <Typography
+    //     style={{
+    //       fontWeight: "600",
+    //       color: "#928E8E",
+    //       fontSize: "25px",
+    //       marginTop: "40px",
+    //     }}
+    //   >
+    //     User Statistics
+    //   </Typography> 
 
-         <div
-        style={{
-          display: "flex",
-          width: "98.5%",
-          gap: "50px",
-          flexWrap: "wrap",
-        }}
-      >
-        <Top5DeenCustomers  /> 
-        <Top5OrderCustomers  /> 
-        </div>
-    </div>
+    //      <div
+    //     style={{
+    //       display: "flex",
+    //       width: "98.5%",
+    //       gap: "50px",
+    //       flexWrap: "wrap",
+    //     }}
+    //   >
+    //     <Top5DeenCustomers  /> 
+    //     <Top5OrderCustomers  /> 
+    //     </div>
+    // </div>
   );
 };
 

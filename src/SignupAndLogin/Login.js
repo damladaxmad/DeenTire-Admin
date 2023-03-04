@@ -35,17 +35,16 @@ const Login = (props) => {
   }, 5000);
 
   const fetchCompanyInfo = async () => {
-    const res = await axios
-    .get(`${constants.baseUrl}/users`).then((res)=> {
+    // const res = await axios
+    // .get(`${constants.baseUrl}/users`).then((res)=> {
      
-        dispatch(setIsConnected("connected"))
-        // dispatch(setCompanyInfo(res.data.data))
-     
-
-    })
-    .catch((err)=> {
-      dispatch(setIsConnected("no connection"))
-    })
+    //     dispatch(setIsConnected("connected"))
+    //     // dispatch(setCompanyInfo(res.data.data))  
+    // })
+    // .catch((err)=> {
+    //   dispatch(setIsConnected("no connection"))
+    // })
+    console.log("hello world")
   }
 
   const loginArr = [
@@ -77,10 +76,19 @@ const Login = (props) => {
       return
     }
     const response = await axios
-    .get(`${constants.baseUrl}/users/authenticate?username=${values.userName}&password=${values.password}`)
+    .post(`${constants.baseUrl}/users/authenticate`, {
+      username: values.userName, password: values.password
+    }).then((res)  => {
+      console.log(res.data.data.user.name)
+      dispatch(setIsLogin(true))
+      dispatch(setActiveUser(response.data?.data?.user))
+      props.showHandler()
+      setShowSpinner(false)
+      // alert(res.data.token)
+    })
     .catch((err) => {
       setShowSpinner(false)
-      setUsernameOrPasswordError(err.response.data.message)
+      setUsernameOrPasswordError(err.response?.data?.message)
     });
     if (response?.data?.authenticated == true) {
       props.showHandler()
@@ -110,13 +118,13 @@ const Login = (props) => {
     
   }, [companyInfo, stateValues])
 
-  useEffect(() => {
-    if (isConnected != "connected") {
-       setTimeout(()=> {
-      fetchCompanyInfo()
-       }, 20000)
-    } 
-  }, [timeInterval, isConnected]);
+  // useEffect(() => {
+  //   if (isConnected != "connected") {
+  //      setTimeout(()=> {
+  //     fetchCompanyInfo()
+  //      }, 20000)
+  //   } 
+  // }, [timeInterval, isConnected]);
 
   return (
     <form

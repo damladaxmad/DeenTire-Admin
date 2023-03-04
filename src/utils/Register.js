@@ -78,7 +78,12 @@ const Register = (props) => {
         props.reset()
       } else {
         
-        axios.post(`${constants.baseUrl}/${props.url}`, values).then((res) => {
+        axios.post(`${constants.baseUrl}/${props.url}`, values,
+        {
+          headers: {
+            "authorization": constants.token
+          }
+        }).then((res) => {
           alert("Successfully Created")
           resetForm();
           // (props.name == "Customer" || props.name == "Vendor")&&props.reset()

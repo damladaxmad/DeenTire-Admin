@@ -76,6 +76,10 @@ const Table = (props) => {
     props.showCustomers(instance)
     handleClose()
   }
+  const showVendorsFun = () => {
+    props.showVendors(instance)
+    handleClose()
+  }
 
   const handleClick = (
     event: React.MouseEvent<HTMLButtonElement>,
@@ -109,6 +113,11 @@ const Table = (props) => {
     handleClose()
     axios.patch(`${constants.baseUrl}/users/${instance._id}`, {
       status: "disabled"
+    },
+    {
+      headers: {
+        "authorization": constants.token
+      }
     }).then(res => {
       alert("Succesfully Disabled User")
       props.change()
@@ -122,6 +131,41 @@ const Table = (props) => {
     }).then(res => {
       alert("Succesfully Enabled User")
       props.change()
+    })
+  }
+  const dollarUser = () => {
+    handleClose()
+    axios.patch(`${constants.baseUrl}/users/${instance._id}`, {
+      currencyMark: "$"
+    }).then(res => {
+      alert("Succesfully Dollared User")
+      props.change()
+    })
+  }
+
+  const cashUser = () => {
+    handleClose()
+    axios.patch(`${constants.baseUrl}/users/${instance._id}`, {
+      currencyMark: "sh."
+    }).then(res => {
+      alert("Succesfully Cashed User")
+      props.change()
+    })
+  }
+  const changePassword = () => {
+    handleClose()
+    axios.post(`${constants.baseUrl}/users/reset-password/${instance._id}`, {
+      password: "12345", passwordConfirm: "12345"
+    },
+    {
+      headers: {
+        'authorization': constants.token
+      },
+    }).then(res => {
+      alert("Succesfully Changed Password")
+      props.change()
+    }).catch((err) => {
+      alert(err.response?.data?.message)
     })
   }
 
@@ -223,6 +267,15 @@ const Table = (props) => {
            {instance.status == "disabled" ? "Enable User" : "Disable User"}
           </MenuItem>
         )}
+        {props.name == "User" && (
+          <MenuItem
+            onClick={() => {
+             changePassword()
+            }}
+          >
+           Change Password
+          </MenuItem>
+        )}
 
    
      {props.name == "Employee" && (
@@ -275,6 +328,13 @@ const Table = (props) => {
           showCustomersFun()
           else alert("You have no access!")
           }}>View Customers</MenuItem>}
+
+        {(props.name == "User")
+          &&  <MenuItem onClick={() => {
+          if (activeUser.privillages.includes("View Customers"))
+          showVendorsFun()
+          else alert("You have no access!")
+          }}>View Vendors</MenuItem>}
 
         {props.name == "Customer" 
           &&  <MenuItem onClick={() => {

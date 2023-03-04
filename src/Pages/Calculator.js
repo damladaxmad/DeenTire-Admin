@@ -72,8 +72,6 @@ const Calculator = () => {
 };
 
 
-
-
 const Team = (props) => {
 console.log(props.income)
 
@@ -102,6 +100,7 @@ console.log(props.income)
               {" "}
               {d.name}:
             </Typography>
+            
             <Typography
               style={{
                 fontSize: "18px",

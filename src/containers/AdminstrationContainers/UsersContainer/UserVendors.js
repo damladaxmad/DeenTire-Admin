@@ -12,13 +12,13 @@ import { constants } from "../../../Helpers/constantsFile";
 import "../../../utils/print.css"
 import useFetch from "../../../funcrions/DataFetchers";
 
-const UsersCustomers = (props) => {
+const UsersVendors = (props) => {
   const companyInfo = useSelector((state) => state.companyInfo.companyInfo);
   const [show, setShow] = useState(false);
   const [data, setData] = useState();
   const componentRef = useRef();
   
-  const customers = useFetch("customers/customers-with-transactions", show, "customers")
+  const customers = useFetch("vendors/vendors-with-transactions", show, "vendors")
   console.log(props.instance._id)
   let userCustomers = []
   customers?.map(customer => {
@@ -142,7 +142,7 @@ const UsersCustomers = (props) => {
           /> */}
           <p style={{ margin: "0px", fontWeight: "700", fontSize: "25px" }}>
             {" "}
-            User Customers
+            User Vendors
           </p>
         </div>
 
@@ -211,4 +211,4 @@ const UsersCustomers = (props) => {
   );
 };
 
-export default UsersCustomers;
+export default UsersVendors;

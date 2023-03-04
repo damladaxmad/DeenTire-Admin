@@ -13,6 +13,7 @@ import useFetch from "../funcrions/DataFetchers";
 import {BiArrowBack} from "react-icons/bi"
 import Transactions from "../containers/AdminstrationContainers/UsersContainer/Transactions"
 import UsersCustomers from "../containers/AdminstrationContainers/UsersContainer/UsersCustomers";
+import UsersVendors from "../containers/AdminstrationContainers/UsersContainer/UserVendors";
 
 const Adminstration = () => {
 
@@ -31,6 +32,7 @@ const Adminstration = () => {
   const [newUser, setNewUser] = useState(false)
   const [showTransactions, setShowTransactions] = useState(false);
   const [showCustomers, setShowCustomers] = useState(false)
+  const [showVendors, setShowVendors] = useState(false)
   const [instance, setInstance] = useState();
   const [buttonName, setButtonName] = useState("Add New Users");
 
@@ -50,6 +52,7 @@ const Adminstration = () => {
     } else if (buttonName == "Go To Users") {
       setShowTransactions(false);
       setShowCustomers(false);
+      setShowVendors(false);
       setButtonName("Add New Users");
     }
   };
@@ -63,6 +66,7 @@ const Adminstration = () => {
 
   const dispatch = useDispatch()
   dispatch(setUsers(useFetch("users/users-with-transactions", change, "users")))
+  
   useEffect(() => {
     console.log(`chang is happening ${change}`)
   })
@@ -119,7 +123,7 @@ const Adminstration = () => {
            else alert("You have no access!");
          }}
          startIcon={
-           newUser || showTransactions || showCustomers ? (
+           newUser || showTransactions || showCustomers || showVendors ? (
              <BiArrowBack
                style={{
                  color: "white",
@@ -141,8 +145,9 @@ const Adminstration = () => {
         </div>
         {showTransactions && <Transactions instance={instance} name="customer" />}
         {showCustomers && <UsersCustomers instance={instance} name="customer"/>}
+        {showVendors && <UsersVendors instance={instance} name="vendor"/>}
 
-    {(value == "users" && !showTransactions && !showCustomers) && <Users key = {change}
+    {(value == "users" && !showTransactions && !showCustomers && !showVendors) && <Users key = {change}
 
     showTransactions={(instance) => {
       setShowTransactions(true);
@@ -155,7 +160,14 @@ const Adminstration = () => {
       setInstance(instance);
       setButtonName("Go To Users");
     }}
+
+    showVendors={(instance) => {
+      setShowVendors(true);
+      setInstance(instance);
+      setButtonName("Go To Users");
+    }}
     />}
+          
     {value == "access" && <Access/>}
 
     {newUser && (
