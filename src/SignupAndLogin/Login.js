@@ -11,6 +11,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import { setCompanyInfo } from "../redux/actions/companyInfoActions";
 import { constants } from "../Helpers/constantsFile";
+import { setToken } from "../redux/actions/tokenActions";
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -27,25 +28,6 @@ const Login = (props) => {
   const isConnected = useSelector(state => state.isLogin.isConnected)
   const [usernameOrPasswordError, setUsernameOrPasswordError] = useState('')
   const [timeInterval, setTimeInterval] = useState(0);
-  const companyInfo = useSelector(state => state.companyInfo.companyInfo)
-
-  setTimeout(() => {
-    if (isConnected == "connected") return
-    setTimeInterval(timeInterval + 1);
-  }, 5000);
-
-  const fetchCompanyInfo = async () => {
-    // const res = await axios
-    // .get(`${constants.baseUrl}/users`).then((res)=> {
-     
-    //     dispatch(setIsConnected("connected"))
-    //     // dispatch(setCompanyInfo(res.data.data))  
-    // })
-    // .catch((err)=> {
-    //   dispatch(setIsConnected("no connection"))
-    // })
-    console.log("hello world")
-  }
 
   const loginArr = [
     { label: "Enter Username", type: "text", name: "userName" },
@@ -68,34 +50,24 @@ const Login = (props) => {
   };
 
   const authenticateFun = async (values) => {
-    if(values.userName=="superuser" && values.password == "234"){
-      props.showHandler()
-      dispatch(setActiveUser(superuser))
-      dispatch(setIsLogin(true))
-      setShowSpinner(false)
-      return
-    }
+  
     const response = await axios
     .post(`${constants.baseUrl}/users/authenticate`, {
-      username: values.userName, password: values.password
-    }).then((res)  => {
-      console.log(res.data.data.user.name)
+      username: values.userName,
+      password: values.password,
+      version: "notify_version"
+    }
+    ).then(res => {
+      dispatch(setActiveUser(res.data?.data?.user))
+      dispatch(setToken(`Bearer ${res?.data?.token}`))
       dispatch(setIsLogin(true))
-      dispatch(setActiveUser(response.data?.data?.user))
-      props.showHandler()
       setShowSpinner(false)
-      // alert(res.data.token)
+      props.showHandler(res.data?.data?.user)
     })
     .catch((err) => {
       setShowSpinner(false)
       setUsernameOrPasswordError(err.response?.data?.message)
     });
-    if (response?.data?.authenticated == true) {
-      props.showHandler()
-      dispatch(setActiveUser(response.data.user))
-      dispatch(setIsLogin(true))
-      setShowSpinner(false)
-    }
   }
 
   const formik = useFormik({
@@ -107,24 +79,14 @@ const Login = (props) => {
     onSubmit: async (values, { resetForm }) =>  {
       setShowSpinner(true)
       setStateValues(values)
-    // authenticateFun(values)
-
-      
     },
   });
 
   useEffect(()=> {
       if (stateValues != "") authenticateFun(stateValues)
     
-  }, [companyInfo, stateValues])
+  }, [stateValues])
 
-  // useEffect(() => {
-  //   if (isConnected != "connected") {
-  //      setTimeout(()=> {
-  //     fetchCompanyInfo()
-  //      }, 20000)
-  //   } 
-  // }, [timeInterval, isConnected]);
 
   return (
     <form
@@ -134,7 +96,7 @@ const Login = (props) => {
      }}
     >
       {loginArr.map((a, index) => (
-        <div>
+        <div key = {index}>
       {showSpinner && <Backdrop className={classes.backdrop} open>
         <CircularProgress color="inherit" />
       </Backdrop>}
@@ -167,7 +129,7 @@ const Login = (props) => {
         style={{
           width: "290px",
           fontSize: "20px",
-          backgroundColor: isConnected !== "no connection" ? "#19274B" : "lightgray",
+          backgroundColor: isConnected !== "no connection" ? "#03656F" : "lightgray",
           fontWeight: "600",
           color: "white",
           height: "40px",

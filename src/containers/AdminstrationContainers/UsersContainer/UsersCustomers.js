@@ -18,19 +18,16 @@ const UsersCustomers = (props) => {
   const [data, setData] = useState();
   const componentRef = useRef();
   
-  const customers = useFetch("customers/customers-with-transactions", show, "customers")
-  console.log(props.instance._id)
-  let userCustomers = []
-  customers?.map(customer => {
-    if (customer.user == props.instance._id) {
-        userCustomers.push(customer)
-    }
-  })
+  const customers = useFetch("customers", show, "customers")
 
   let balance = 0
-  userCustomers?.map(i => {
+  let totalCustomers = 0
+  customers?.map((i, index) => {
     balance += i.balance
+    totalCustomers += index
   })
+
+  console.log(customers, props.instance)
 
   const materialOptions = {
     showTitle: false,
@@ -70,7 +67,7 @@ const UsersCustomers = (props) => {
       render: (data) => {
   
         return <p style={{texAlign: 'end'}}>
-          {data.balance < 0 ? `-${constants.moneySign}${data.balance* -1}` : `${constants.moneySign}${data.balance}`}
+          {data?.balance < 0 ? `-${constants.moneySign}${data.balance* -1}` : `${constants.moneySign}${data.balance}`}
         </p>
       },
       cellStyle: { border: "none" },
@@ -160,13 +157,13 @@ const UsersCustomers = (props) => {
             </div>
             <div style={{ display: "flex", gap: "20px" }}>
               <p style={{ fontWeight: "700" }}> User Phone:</p>
-              <p> {props.instance.username}</p>
+              <p> {props.instance.phone}</p>
             </div>
           </div>
 
         <MaterialTable
           columns={columns}
-          data={userCustomers}
+          data={customers}
           options={materialOptions}
           style={{
             borderRadius: "10px",
@@ -203,6 +200,7 @@ const UsersCustomers = (props) => {
             ? `-${constants.moneySign}${balance * -1}`
             : `${constants.moneySign}${balance.toFixed(2)}`}
         </p>
+        <p> {totalCustomers}</p>
       </div>
       </div>
      
@@ -210,5 +208,12 @@ const UsersCustomers = (props) => {
     </>
   );
 };
+
+// return (
+//   <div>
+//     This is bad
+//   </div>
+// )
+// }
 
 export default UsersCustomers;

@@ -22,7 +22,11 @@ const Users = (props) => {
     { title: "User Fee", field: "fee" },
     { title: "Status", field: "status", render: (data) => 
     <p style = {{color: data.status == "disabled" && "red"}}> {data.status}</p>},
-    { title: "Balance", field: "balance",  },
+    { title: "Notify", field: "notify", render: (data) => 
+  <p style = {{
+    color: data.notify == "stuck" && "red", 
+    fontWeight: data.notify == "stuck" && "bold", 
+  }}> {data.notify}</p>  },
   ]
 
   const parentDivStyle = { display: "flex", alignItems: "center",
@@ -52,15 +56,14 @@ const Users = (props) => {
     setStatus(e.target.value)
   }
 
-  dispatch(setUsers(useFetch("users/users-with-transactions", force, "users")))
-
   const handler = (data) => { 
     if (data?.length > 0) {
       return data.filter(
-        (std) =>
-        std.username.toLowerCase().includes(query) ||
-        std.name.toString().toLowerCase().includes(query)
-      );
+        (std) => {
+          if (std.status != "active") return
+        return std.phone?.toString().toLowerCase().includes(query.toLocaleLowerCase()) ||
+        std.name.toString().toLowerCase().includes(query.toLocaleLowerCase())
+         } );
     } else {
       return
     }  
@@ -81,7 +84,8 @@ const Users = (props) => {
     }
   }, [query]);
 
-   
+  console.log(users)
+  
   return (
 <>
     <div

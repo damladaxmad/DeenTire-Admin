@@ -10,10 +10,12 @@ import { employeesReducer } from "./employeesReducer";
 import { stylesReducer } from "./stylesReducer"; 
 import { employeeTitleReducer } from "./employeeTitleReducer"; 
 import { isLoginReducer } from "./isLoginReducer";
+import { tokenReducer } from "./tokenReducer";
 
 const reducers = combineReducers({
   dashboard: dashboardReducer,
   customers: customersReducer,
+  token: tokenReducer,
   orders: ordersReducer,
   menus: menusReducer,
   users: usersReducer,

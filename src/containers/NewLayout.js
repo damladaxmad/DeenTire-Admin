@@ -149,6 +149,21 @@ const menuItems = [
       icon: <MdAdminPanelSettings style={{fontSize: "20px", color: "#130F26" }} />,
       path: "/calculator",
     },
+    {
+      text: "Send Sms",
+      icon: <MdAdminPanelSettings style={{fontSize: "20px", color: "#130F26" }} />,
+      path: "/sms",
+    },
+    {
+      text: "Speech",
+      icon: <MdAdminPanelSettings style={{fontSize: "20px", color: "#130F26" }} />,
+      path: "/speech",
+    },
+    {
+      text: "Ogeysiis",
+      icon: <MdAdminPanelSettings style={{fontSize: "20px", color: "#130F26" }} />,
+      path: "/ogeysiis",
+    },
   
 
  
@@ -251,9 +266,6 @@ export default function NewLayout({children}) {
         <Divider />
         <List>
           {menuItems.map((item, index) => {
-            if (!activeUser?.privillages?.includes(item.text)) return
-            if (1 === 2) return
-            else {
               
            return <ListItem
               button
@@ -274,7 +286,7 @@ export default function NewLayout({children}) {
               <ListItemText primary={item.text} 
               style = {{color: location.pathname == item.path ? "#171717;" : "#19274B"}}/>
             </ListItem>
-            }
+            
       })}
         </List>
       

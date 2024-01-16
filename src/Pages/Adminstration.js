@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useReducer } from "react"
-import {Tabs, Tab, Box} from "@mui/material"
+import {Tabs, Tab, Box, Typography} from "@mui/material"
 import Users from "../containers/AdminstrationContainers/UsersContainer/Users"
 import Access from "../containers/AdminstrationContainers/AccessContainers/Access";
 import { useDispatch, useSelector } from "react-redux";
@@ -65,7 +65,7 @@ const Adminstration = () => {
   }
 
   const dispatch = useDispatch()
-  dispatch(setUsers(useFetch("users/users-with-transactions", change, "users")))
+  dispatch(setUsers(useFetch("users", change, "users")))
   
   useEffect(() => {
     console.log(`chang is happening ${change}`)
@@ -84,30 +84,8 @@ const Adminstration = () => {
   >
     <div style = {{display: "flex", width: "95%", margin: "auto",
   justifyContent: "space-between"}}>
-     <Box sx={{ width: "95%", margin: "auto" }}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            textColor="black"
-            indicatorColor="primary"
-            aria-label="secondary tabs example"
-            disableFocusRipple = {true}
-          >
-            
-       
-          {activeUser.privillages?.includes("Users") && <Tab 
-            disableFocusRipple = {true}
-            disableRipple = {true}
-            value="users" label="Users"
-            style={{ fontSize: "16px", fontWeight: "700" }} />}
-
-          {activeUser.privillages.includes("Access") && <Tab 
-            disableFocusRipple = {true}
-            disableRipple = {true}
-            value="access" label="Access"
-            style={{ fontSize: "16px", fontWeight: "700" }} />}
-          </Tabs>
-        </Box>
+     <Typography style = {{fontWeight: "bold", 
+    fontSize: "23px"}}> User Creation</Typography>
         {value == "users" && 
          <Button
          variant="contained"
@@ -115,12 +93,11 @@ const Adminstration = () => {
            backgroundColor: "#19274B",
            color: "white",
            width: "220px",
+           height: "45px",
            fontWeight: "bold"
          }}
          onClick={() => {
-           if (activeUser.privillages.includes("Add New Users"))
              addHandler();
-           else alert("You have no access!");
          }}
          startIcon={
            newUser || showTransactions || showCustomers || showVendors ? (

@@ -37,7 +37,10 @@ module.exports = {
    "Disable User",
    "Add New Users",
    "View Customers",
-   "Calculator"
+   "Calculator",
+   "Send Sms",
+   "Speech",
+   "Ogeysiis"
   ],
 };
 

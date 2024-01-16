@@ -14,12 +14,21 @@ import { setDashboard } from "./redux/actions/dashboardActions";
 import useFetch from "./funcrions/DataFetchers";
 import { constants } from "./Helpers/constantsFile";
 import Calculator from "./Pages/Calculator";
+import { setUsers } from "./redux/actions/usersActions";
+import SendSms from "./Pages/SendSms";
+import CustomerAdder from "./Pages/CustomerAdder";
+import Analysis from "./Pages/Analysis";
+import SendSMS from "./Pages/SendSms";
+import Ogeysiis from "./Pages/Ogeysiis";
 
 
 const pages = [
      <Route path= "/dashboard" element = {<Dashboard/>} />,
      <Route path= "/adminstration" element = {<Adminstration/>} />,  
      <Route path= "/calculator" element = {<Calculator/>} />,  
+     <Route path= "/sms" element = {<SendSMS/>} />,  
+     <Route path= "/speech" element = {<CustomerAdder/>} />,  
+     <Route path= "/ogeysiis" element = {<Ogeysiis/>} />,  
 
 ]
 
@@ -34,6 +43,7 @@ function App() {
   const companyInfo = useSelector(state => state.companyInfo.companyInfo)
 
   // dispatch(setDashboard(useFetch("dashboard", isLogin, "dashboard")))
+  // dispatch(setUsers(useFetch("users/users-with-transactions", isLogin, "users")))
 
   const showHandler = () => {
     setShowLayout(true)

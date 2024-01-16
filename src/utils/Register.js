@@ -11,6 +11,7 @@ const Register = (props) => {
 
   const types = ["Shaati", "Surwaal", "Qamiis", "Jaakad", "Futishaari"]
   const [type, setType] = useState("")
+  const token = useSelector(state => state.token.token)
 
   const typeHandler = (e) => {
     setType(e.target.value)
@@ -19,52 +20,40 @@ const Register = (props) => {
   const validate = (values) => {
     const errors = {};
 
-   if (props.name !== "Expense") {
      if (!values.name) {
        errors.name = "Field is Required";
      }
-   }
-
-   if (props.name == "Expense") {
-
-    // if (!values.description) {
-    //   errors.description = "Field is Required";
-    // }
-    if (!values.date) {
-      errors.date = "Field is Required";
-    }
-    if (!values.amount) {
-      errors.amount = "Field is Required";
-    }
-    if (!values.to) {
-      errors.to = "Field is Required";
-    }
-  }
+     if (!values.username) {
+       errors.username = "Field is Required";
+     }
+     if (!values.phone) {
+       errors.phone = "Field is Required";
+     }
+     if (!values.fee) {
+       errors.fee = "Field is Required";
+     }
+     if (!values.password) {
+       errors.password = "Field is Required";
+     }
 
     return errors;
   };
 
   const formik = useFormik({
-    initialValues: props.name == "Employee" ? {
-      phone: props.update ? props.instance.phone : "",
-      name: props.update ? props.instance.name : "",
-      role: props.update ? props.instance.role : "",
-    } : props.name == "Styles" ?  {
-      type: props.update ? props.instance.type : "",
-      name: props.update ? props.instance.name : "",
-      description: props.update ? props.instance.description : "",
-    }
-    : {
+    initialValues:{
         name: props.update ? props.instance.name : "",
         phone: props.update ? props.instance.phone : "",
-        deadline: props.update ? props.instance.deadline : "",
-        type: props.update ? props.instance.type : ""
+        username: props.update ? props.instance.username : "",
+        fee: props.update ? props.instance.fee : "",
+        password: props.update ? props.instance.password : ""
     },
     validate,
     onSubmit: (values, { resetForm }) => {
       if (props.name == "Styles" && !props.styleType) values.type = type
       if (props.name == "Styles" && !values.description) values.description = values.name
       if (props.name == "Styles" && props.styleType) values.type = props.styleType
+      values.passwordConfirm = values.password
+      values.phone = values.phone
       if (props.update){
         axios.patch(`${constants.baseUrl}/${props.url}/${props.instance._id}`, values).then((res) => {
           alert("Successfully Updated")
@@ -81,7 +70,7 @@ const Register = (props) => {
         axios.post(`${constants.baseUrl}/${props.url}`, values,
         {
           headers: {
-            "authorization": constants.token
+            "authorization": token
           }
         }).then((res) => {
           alert("Successfully Created")

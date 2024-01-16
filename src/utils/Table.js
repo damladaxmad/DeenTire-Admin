@@ -133,6 +133,7 @@ const Table = (props) => {
       props.change()
     })
   }
+
   const dollarUser = () => {
     handleClose()
     axios.patch(`${constants.baseUrl}/users/${instance._id}`, {
@@ -152,6 +153,7 @@ const Table = (props) => {
       props.change()
     })
   }
+
   const changePassword = () => {
     handleClose()
     axios.post(`${constants.baseUrl}/users/reset-password/${instance._id}`, {
@@ -169,7 +171,22 @@ const Table = (props) => {
     })
   }
 
-
+  const loopUser = () => {
+    handleClose()
+    axios.patch(`${constants.baseUrl}/users/${instance._id}`, {
+      notify: "none"
+    },
+    {
+      headers: {
+        'authorization': constants.token
+      },
+    }).then(res => {
+      alert("Succesfully Looped user")
+      props.change()
+    }).catch((err) => {
+      alert(err.response?.data?.message)
+    })
+  }
 
   const restore = () => {
     axios.post(`${constants.baseUrl}/${props.url}/restore/${instance._id}`).then((res)=> {
@@ -179,6 +196,21 @@ const Table = (props) => {
       alert("something went wrong")
     })
     handleClose()
+  }
+
+  const adjustUserBalances = () => {
+    handleClose()
+    axios.get(`https://deentire-api-rj2w.onrender.com/api/v1/customers/adjust-customers-balance-by-userId/${instance._id}`, 
+    {
+       headers: {
+         'authorization': constants.token
+         },
+     }).then((res) => {
+          console.log(res?.data?.data)
+          alert("Successfully Adjusted")
+     }).catch((err) => {
+       alert(err.response.data.message);
+     });
   }
   let state = props.state;
 
@@ -217,56 +249,7 @@ const Table = (props) => {
         }}
         style={{marginTop: "25px"}}
       >
-        {(props.name == "User") && (
-          <MenuItem
-            onClick={() => {
-              if (activeUser.privillages.includes("Payment")){
-              handleClose()
-              setShowPaymentModal(true)
-              }
-              else alert("You have no access!");
-            }}
-          >
-            Payment
-          </MenuItem>
-        )}
-
-        {props.name == "User" && (
-          <MenuItem
-            onClick={() => {
-              if (activeUser.privillages.includes("Reset User"))
-                showUserModal();
-              else alert("You have no access");
-            }}
-          >
-            Reset User
-          </MenuItem>
-        )}
-        {props.name == "User" && (
-          <MenuItem
-            onClick={() => {
-              if (activeUser.privillages.includes("Reset User"))
-                {
-                  setShowChargeModal(true);
-                  handleClose()
-                }
-              else alert("You have no access");
-            }}
-          >
-            Charge User
-          </MenuItem>
-        )}
-        {props.name == "User" && (
-          <MenuItem
-            onClick={() => {
-              if (activeUser.privillages.includes("Disable User"))
-                instance.status == "disabled" ? enableUser() : disableUser();
-              else alert("You have no access");
-            }}
-          >
-           {instance.status == "disabled" ? "Enable User" : "Disable User"}
-          </MenuItem>
-        )}
+       
         {props.name == "User" && (
           <MenuItem
             onClick={() => {
@@ -277,71 +260,27 @@ const Table = (props) => {
           </MenuItem>
         )}
 
+        {props.name == "User" && (
+          <MenuItem
+            onClick={() => {
+             loopUser()
+            }}
+          >
+           Loop
+          </MenuItem>
+        )}
+        {props.name == "User" && (
+          <MenuItem
+            onClick={() => {
+              adjustUserBalances()
+            }}
+          >
+           Adjust
+          </MenuItem>
+        )}
+
    
-     {props.name == "Employee" && (
-          <MenuItem
-            onClick={() => {
-              if (activeUser.privillages.includes("Give User")) showModal();
-              else alert("You have no access");
-            }}
-          >
-            Give User
-          </MenuItem>
-        )}
-
-        {/* {props.name !== "Customer" && (
-          <MenuItem
-            onClick={() => {
-              if (activeUser.privillages.includes(`Delete ${props.name}`))
-                deleteInstance();
-              else alert("You have no access!");
-            }}
-          >
-            Delete {props.name}
-          </MenuItem>
-        )} */}
-
-        {(props.name == "Employee" ||
-          props.name == "Styles" ||
-          props.name == "Customer" || props.name == "Expense") && (
-          <MenuItem
-            onClick={() => {
-              if (activeUser.privillages.includes(`Update ${props.name}`))
-                updateInstance();
-              else alert("You have no access!");
-            }}
-          >
-            Update {props.name}
-          </MenuItem>
-        )}
-
-        {(props.name == "User")
-          &&  <MenuItem onClick={() => {
-          if (activeUser.privillages.includes("View Transactions"))
-          showTransactionsFun()
-          else alert("You have no access!")
-          }}>View Transactions</MenuItem>}
-
-        {(props.name == "User")
-          &&  <MenuItem onClick={() => {
-          if (activeUser.privillages.includes("View Customers"))
-          showCustomersFun()
-          else alert("You have no access!")
-          }}>View Customers</MenuItem>}
-
-        {(props.name == "User")
-          &&  <MenuItem onClick={() => {
-          if (activeUser.privillages.includes("View Customers"))
-          showVendorsFun()
-          else alert("You have no access!")
-          }}>View Vendors</MenuItem>}
-
-        {props.name == "Customer" 
-          &&  <MenuItem onClick={() => {
-          if (activeUser.privillages.includes("View Orders"))
-          showOrders()
-          else alert("You have no access!")
-          }}>View Orders</MenuItem>}
+  
 
       </Menu>
 
