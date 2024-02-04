@@ -25,10 +25,9 @@ import Ogeysiis from "./Pages/Ogeysiis";
 const pages = [
      <Route path= "/dashboard" element = {<Dashboard/>} />,
      <Route path= "/adminstration" element = {<Adminstration/>} />,  
-     <Route path= "/calculator" element = {<Calculator/>} />,  
+     <Route path= "/excel" element = {<Calculator/>} />,  
      <Route path= "/sms" element = {<SendSMS/>} />,  
-     <Route path= "/speech" element = {<CustomerAdder/>} />,  
-     <Route path= "/ogeysiis" element = {<Ogeysiis/>} />,  
+     <Route path= "/calculator" element = {<Ogeysiis/>} />,  
 
 ]
 

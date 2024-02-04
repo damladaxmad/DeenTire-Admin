@@ -129,7 +129,7 @@ const Login = (props) => {
         style={{
           width: "290px",
           fontSize: "20px",
-          backgroundColor: isConnected !== "no connection" ? "#03656F" : "lightgray",
+          backgroundColor: isConnected !== "no connection" ? "#19274B" : "lightgray",
           fontWeight: "600",
           color: "white",
           height: "40px",

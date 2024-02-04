@@ -250,8 +250,8 @@ const ImportProducts = () => {
             const worksheetName = workbook.SheetNames[0];
             const worksheet=workbook.Sheets[worksheetName];
             const data = XLSX.utils.sheet_to_json(worksheet);
-            const sheetName = 'Sheet1'; // Or use workbook.SheetNames[1] to target 'Sheet1' dynamically
-
+            const sheetName = 'Table 1'; // Or use workbook.SheetNames[1] to target 'Sheet1' dynamically
+            console.log(data)
             if (workbook.SheetNames.includes(sheetName)) {
               const worksheet = workbook.Sheets[sheetName];
               const data = XLSX.utils.sheet_to_json(worksheet);
@@ -297,20 +297,21 @@ const ImportProducts = () => {
       }
 
       excelData?.map((data, index) => {
-        if (index < 102) return
-        if (!data["Customer"]) return
+        if (true )  {
+        // if (!data["Name"]) return
         cashCustomers.push({
-          user: "659e770c8764e735ff40",
-        name: data["Customer"],
-        phone: data["Main Phone"]?.toString() || "0615000000",
-        balance: data["Balance"],
-        district: data.Area || "empty",
-        type: "deynle"
+          user: "63b197b37f5f1674109bf22a",
+        name: data["__EMPTY"]?.replace(/\s*\d+\s*/g, '')?.trim(),
+        phone: data["__EMPTY_1"]?.toString() || "0000000000",
+        // balance: data["Balance"],
+        // district: data.Area || "empty",
+        type: "kaashle"
         })
+      }
       })
 
       const loopAndUpload = async (element) => {
-        const response = await axios.post(`${constants.baseUrl}/custome`,
+        const response = await axios.post(`${constants.baseUrl}/customers`,
        element,
         {
           headers: {
@@ -318,19 +319,19 @@ const ImportProducts = () => {
           }
         })
         console.log(response)
-        const response2 = await axios.post(`https://deentire-api-rj2w.onrender.com/api/v1/transacti`,
-        { user: "659e7d50f70c8764e735ff40",
-        customer: response.data?.data?.createdCustomer?._id,
-        description: "Total",
-        debit: element.balance,
-        date: "2024/02/10"},
-        {
-          headers: {
-            "authorization": constants.token
-          }
-        })
+        // const response2 = await axios.post(`https://deentire-api-rj2w.onrender.com/api/v1/transacti`,
+        // { user: "659e7d50f70c8764e735ff40",
+        // customer: response.data?.data?.createdCustomer?._id,
+        // description: "Total",
+        // debit: element.balance,
+        // date: "2024/02/10"},
+        // {
+        //   headers: {
+        //     "authorization": constants.token
+        //   }
+        // })
 
-        console.log(response2)
+        // console.log(response2)
       }
 
 
@@ -340,7 +341,7 @@ const ImportProducts = () => {
          
       }
 
-      console.log(excelData)
+      console.log(cashCustomers)
 
       const imageUrl = 'https://firebasestorage.googleapis.com/v0/b/deentire-application.appspot.com/o/LOGO%2Fcaalami.jpeg?alt=media&token=c98a3e2c-2b36-499e-9ba0-bae60a5a9832';
      
@@ -362,13 +363,13 @@ const ImportProducts = () => {
         </form>
 
         {excelData?.map(data => {
-          if (!data["Customer"]) return
+          // if (!data["Name"]) return
            return <div style={{display: "flex", gap: "20px",
             width: "40%", justifyContent: "space-between"}}>
-                <p> {data['Customer']}</p>
-                <p> {data['Main Phone']}</p>
-                <p> {data['Area']}</p>
-                <p> {data["Balance"]}</p>
+                <p> {data['__EMPTY']}</p>
+                <p> {data['Number']}</p>
+                {/* <p> {data['Area']}</p>
+                <p> {data["Balance"]}</p> */}
              
             </div>
 })}
@@ -378,14 +379,14 @@ const ImportProducts = () => {
             Upload
         </Button>
 
-        <div style={{ width: '100px', height: '300px', overflow: 'hidden' }}>
+        {/* <div style={{ width: '100px', height: '300px', overflow: 'hidden' }}>
       <h2>Image from URL</h2>
       <img
         src={imageUrl}
         alt="Your Image"
         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
       />
-    </div>
+    </div> */}
 
         </div>
 

@@ -16,6 +16,7 @@ import ResetUser from "../containers/AdminstrationContainers/UsersContainer/Rese
 import { useNavigate, useLocation } from "react-router-dom";
 import ChargeUser from "../containers/AdminstrationContainers/UsersContainer/ChargeUser";
 import Payment from "../containers/AdminstrationContainers/UsersContainer/Payment";
+import { updateUser } from "../redux/actions/usersActions";
 
 const Table = (props) => {
   const tableIcons = {
@@ -37,6 +38,7 @@ const Table = (props) => {
   const activeUser = useSelector((state) => state.activeUser.activeUser);
   const navigate = useNavigate();
   const dispatch = useDispatch()
+  const token = useSelector(state => state.token.token)
 
   const columns = props.columns;
 
@@ -116,7 +118,7 @@ const Table = (props) => {
     },
     {
       headers: {
-        "authorization": constants.token
+        "authorization": token
       }
     }).then(res => {
       alert("Succesfully Disabled User")
@@ -161,7 +163,7 @@ const Table = (props) => {
     },
     {
       headers: {
-        'authorization': constants.token
+        'authorization': token
       },
     }).then(res => {
       alert("Succesfully Changed Password")
@@ -171,18 +173,18 @@ const Table = (props) => {
     })
   }
 
-  const loopUser = () => {
+  const loopUser = (type) => {
     handleClose()
     axios.patch(`${constants.baseUrl}/users/${instance._id}`, {
-      notify: "none"
+      notify: type
     },
     {
       headers: {
-        'authorization': constants.token
+        'authorization': token
       },
     }).then(res => {
-      alert("Succesfully Looped user")
-      props.change()
+      alert(`Waxaa la saaray ${type}`)
+      dispatch(updateUser(res?.data?.data?.user))
     }).catch((err) => {
       alert(err.response?.data?.message)
     })
@@ -203,7 +205,7 @@ const Table = (props) => {
     axios.get(`https://deentire-api-rj2w.onrender.com/api/v1/customers/adjust-customers-balance-by-userId/${instance._id}`, 
     {
        headers: {
-         'authorization': constants.token
+         'authorization': token
          },
      }).then((res) => {
           console.log(res?.data?.data)
@@ -259,23 +261,62 @@ const Table = (props) => {
            Change Password
           </MenuItem>
         )}
+        {props.name == "User" && (
+          <MenuItem
+            onClick={() => {
+            handleClose()
+             props.updateUser(instance)
+            }}
+          >
+          Update User
+          </MenuItem>
+        )}
 
         {props.name == "User" && (
           <MenuItem
             onClick={() => {
-             loopUser()
+             loopUser("none")
             }}
           >
-           Loop
+           Ka qaad
           </MenuItem>
         )}
+        {props.name == "User" && (
+          <MenuItem
+            onClick={() => {
+             loopUser("loop")
+            }}
+          >
+           Loop Saar
+          </MenuItem>
+        )}
+        {props.name == "User" && (
+          <MenuItem
+            onClick={() => {
+             loopUser("stuck")
+            }}
+          >
+           Stuck Saar
+          </MenuItem>
+        )}
+
         {props.name == "User" && (
           <MenuItem
             onClick={() => {
               adjustUserBalances()
             }}
           >
-           Adjust
+           Adjust Garee
+          </MenuItem>
+        )}
+        {props.name == "User" && (
+          <MenuItem
+            onClick={() => {
+              handleClose()
+              props.showCustomers(instance)
+            }}
+          >
+           See Customers
           </MenuItem>
         )}
 

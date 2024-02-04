@@ -12,6 +12,7 @@ const Users = (props) => {
 
   const dispatch = useDispatch();
   const [state, setState] = useState('')
+  const token = useSelector(state => state.token.token)
 
   const columns = [
     { title: "User Name", field: "name", width: "4%" },
@@ -114,6 +115,8 @@ const Users = (props) => {
       showVendors={(instance) => {
        props.showVendors(instance)
       }}
+
+      updateUser = {(data) => props.updateUser(data)}
       />
 
       </>

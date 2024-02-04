@@ -32,35 +32,37 @@ const Register = (props) => {
      if (!values.fee) {
        errors.fee = "Field is Required";
      }
-     if (!values.password) {
-       errors.password = "Field is Required";
-     }
+  
 
     return errors;
   };
 
   const formik = useFormik({
     initialValues:{
-        name: props.update ? props.instance.name : "",
-        phone: props.update ? props.instance.phone : "",
-        username: props.update ? props.instance.username : "",
-        fee: props.update ? props.instance.fee : "",
-        password: props.update ? props.instance.password : ""
+        name: props.update ? props.instance?.name : "",
+        phone: props.update ? props.instance?.phone : "",
+        username: props.update ? props.instance?.username : "",
+        fee: props.update ? props.instance?.fee : ""
     },
     validate,
     onSubmit: (values, { resetForm }) => {
-      if (props.name == "Styles" && !props.styleType) values.type = type
-      if (props.name == "Styles" && !values.description) values.description = values.name
-      if (props.name == "Styles" && props.styleType) values.type = props.styleType
-      values.passwordConfirm = values.password
+      if (!props.update) {
+        values.password = "123"
+        values.passwordConfirm = "123"
+      }
+     
       values.phone = values.phone
       if (props.update){
-        axios.patch(`${constants.baseUrl}/${props.url}/${props.instance._id}`, values).then((res) => {
+        axios.patch(`${constants.baseUrl}/${props.url}/${props.instance._id}`, values,
+        {
+          headers: {
+            "authorization": token
+          }
+        }).then((res) => {
           alert("Successfully Updated")
           resetForm();
-          props.reset()
           props.hideModal()
-          props.name == "Employee" && props.change()
+          props.name == "User" && props.change(res?.data?.data)
         }).catch((err) => {
           alert(err.response?.data?.message);
         });
@@ -74,10 +76,9 @@ const Register = (props) => {
           }
         }).then((res) => {
           alert("Successfully Created")
-          resetForm();
           // (props.name == "Customer" || props.name == "Vendor")&&props.reset()
           props.hideModal()
-          props.change()
+          props.change(res?.data?.data)
         }).catch((err) => {
           alert(err.response.data.message);
           // props.reset()
@@ -92,8 +93,8 @@ const Register = (props) => {
 
  
   return (
-    <Modal onClose = {props.hideModal} pwidth = {props.name == "Expense" ?"630px" : "450px"}
-    left = {props.name == "Expense" ? "32%" : "38%"} top = "18%">
+    <Modal onClose = {props.hideModal} pwidth = {"450px"}
+    left = {props.name == "Expense" ? "32%" : "38%"} top = "22%">
        <div
         style={{
           display: "flex",

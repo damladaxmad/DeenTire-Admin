@@ -145,24 +145,20 @@ const menuItems = [
       path: "/adminstration",
     },
     {
-      text: "Calculator",
+      text: "Import Excel",
       icon: <MdAdminPanelSettings style={{fontSize: "20px", color: "#130F26" }} />,
-      path: "/calculator",
+      path: "/excel",
     },
     {
       text: "Send Sms",
       icon: <MdAdminPanelSettings style={{fontSize: "20px", color: "#130F26" }} />,
       path: "/sms",
     },
+
     {
-      text: "Speech",
+      text: "Calculator",
       icon: <MdAdminPanelSettings style={{fontSize: "20px", color: "#130F26" }} />,
-      path: "/speech",
-    },
-    {
-      text: "Ogeysiis",
-      icon: <MdAdminPanelSettings style={{fontSize: "20px", color: "#130F26" }} />,
-      path: "/ogeysiis",
+      path: "/calculator",
     },
   
 

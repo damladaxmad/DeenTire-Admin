@@ -8,7 +8,7 @@ import ImportProducts from "../containers/AdminstrationContainers/ImportContaine
 import { Button } from "@material-ui/core";
 import Register from "../utils/Register";
 import {MdAdd} from "react-icons/md"
-import { setUsers } from "../redux/actions/usersActions";
+import { setUsers, updateUser } from "../redux/actions/usersActions";
 import useFetch from "../funcrions/DataFetchers";
 import {BiArrowBack} from "react-icons/bi"
 import Transactions from "../containers/AdminstrationContainers/UsersContainer/Transactions"
@@ -21,7 +21,6 @@ const Adminstration = () => {
     { label: "Enter Name", type: "text", name: "name" },
     { label: "Enter username", type: "text", name: "username" },
     { label: "Enter phone", type: "number", name: "phone" },
-    { label: "Enter Password", type: "password", name: "password" },
     { label: "Enter Fee", type: "number", name: "fee" },
   ];
 
@@ -35,6 +34,8 @@ const Adminstration = () => {
   const [showVendors, setShowVendors] = useState(false)
   const [instance, setInstance] = useState();
   const [buttonName, setButtonName] = useState("Add New Users");
+  const [update, setUpdate] = useState(false)
+  const [updatedUser, setUpdatedUser] = useState()
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -59,12 +60,14 @@ const Adminstration = () => {
 
   const [change, setChange] = useState(1)
   const [myChange, setMyChange] = useState(1)
+  const dispatch = useDispatch()
 
-  const changeHandler = () => {
+  const changeHandler = (data) => {
+    dispatch(updateUser(data.user))
     setChange(state => state + 1)
   }
 
-  const dispatch = useDispatch()
+
   dispatch(setUsers(useFetch("users", change, "users")))
   
   useEffect(() => {
@@ -85,7 +88,7 @@ const Adminstration = () => {
     <div style = {{display: "flex", width: "95%", margin: "auto",
   justifyContent: "space-between"}}>
      <Typography style = {{fontWeight: "bold", 
-    fontSize: "23px"}}> User Creation</Typography>
+    fontSize: "23px"}}> Adminstration</Typography>
         {value == "users" && 
          <Button
          variant="contained"
@@ -124,7 +127,8 @@ const Adminstration = () => {
         {showCustomers && <UsersCustomers instance={instance} name="customer"/>}
         {showVendors && <UsersVendors instance={instance} name="vendor"/>}
 
-    {(value == "users" && !showTransactions && !showCustomers && !showVendors) && <Users key = {change}
+    {(value == "users" && !showTransactions && !showCustomers && !showVendors) 
+    && <Users key = {change}
 
     showTransactions={(instance) => {
       setShowTransactions(true);
@@ -143,12 +147,24 @@ const Adminstration = () => {
       setInstance(instance);
       setButtonName("Go To Users");
     }}
+
+    updateUser = {(user, type)=> {
+      if (type == "side") {
+        
+      }
+      setNewUser(true);
+    setButtonName("Go To Users");
+    setUpdate(true);
+    setUpdatedUser(user);
+    }}
     />}
           
     {value == "access" && <Access/>}
 
     {newUser && (
         <Register
+        instance = {updatedUser}
+          update = {update}
           hideModal={() => {
             setNewUser(false)
             setButtonName("Add New Users")
@@ -156,7 +172,7 @@ const Adminstration = () => {
           fields={fields}
           url="users"
           name="User"
-          change={changeHandler}
+          change={(data)=> changeHandler(data)}
         />
       )}
     </div>

@@ -18,6 +18,8 @@ import { Typography } from "@material-ui/core";
 import axios from "axios";
 import moment from "moment/moment";
 import { useEffect, useState } from "react"
+import { useSelector } from "react-redux";
+import { constants } from "../Helpers/constantsFile";
 
 // const Dashboard = () => {
 //   const dashboard = useSelector((state) => state.dashboard.dashboard);
@@ -168,12 +170,13 @@ const ReadUserTransactions = () => {
 
   const [userTrans, setUserTrans] = useState()
   const today = new Date()
+  const token = useSelector(state => state.token.token)
 
   const readUserTrans = () => {
-    axios.get("https://sharp-hamilton.45-90-223-247.plesk.page/api/v1/user-transactions", 
+    axios.get(`${constants.baseUrl}/user-transactions`, 
     {
        headers: {
-         'authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYjE5N2IzN2Y1ZjE2NzQxMDliZjIyYSIsImlhdCI6MTcwNDQ4ODU1NCwiZXhwIjoxNzA3MDgwNTU0fQ.K-iHFwhEG5rFN8PF6vsRDeQeo0XEj63vIu8pk_dSc7E"
+         'authorization': token
        },
      }).then((res) => {
           console.log(res?.data?.data)
@@ -201,7 +204,7 @@ const ReadUserTransactions = () => {
 
   let smsArray = []
   userTrans?.map(tran => {
-    if (moment(tran.date).format("YYYY-MM-DD") > "2023-12-10")
+    if (moment(tran.date).format("YYYY-MM-DD") > "2024-01-11")
     if (tran.description?.substring(0, 3) == "SMS")
     smsArray.push(tran)
   })

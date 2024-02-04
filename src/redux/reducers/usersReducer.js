@@ -11,10 +11,25 @@ export const usersReducer = (state = intialState, { type, payload }) => {
   switch (type) {
     case ActionTypes.SET_USERS:
       return { ...state, users: payload };
-    default:
-      return state;
+ 
+      case ActionTypes.UPDATE_USER: 
+      return {
+        ...state, 
+        users: state.users.map(user => {
+          if (user._id === payload._id) {
+            return { ...user, ...payload }; // Merge existing properties with payload
+          }
+          return user;
+        }),
+      };
+
+      default:
+        return state;
   }
+
+
 };
+
 
 export const activeUserReducer = (state = initState, { type, payload }) => {
   switch (type) {

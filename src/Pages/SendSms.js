@@ -16,6 +16,7 @@ const SendSMS = () => {
   const [showSuccess, setShowSuccess] = useState(false)
   const [successData, setSuccessData] = useState()
   const [loading, setLoading] = useState(false)
+  const token = useSelector(state => state.token.token)
 
   let loopCustomers = []
   customers?.map(customer => {
@@ -71,7 +72,7 @@ const SendSMS = () => {
           },
         {
           headers: {
-            authorization: constants.token,
+            authorization: token,
           },
         }
       )
@@ -220,7 +221,6 @@ const SendSMS = () => {
             </div>
           ))}
       </div>
-      <NumberAdder/>
     </div>
   );
 };
@@ -317,37 +317,7 @@ export default SendSMS;
 // export default SendSMS
 
 
-const NumberAdder = () => {
-  const [inputText, setInputText] = useState('');
 
-  const calculateTotal = () => {
-    let total = 0;
-    const regex = /\$([0-9.]+)/g; // Regular expression to match decimal numbers after $
-    const matches = inputText.matchAll(regex);
-
-    for (const match of matches) {
-      total += parseFloat(match[1]); // Adding up the decimal numbers after $
-    }
-
-    return total.toFixed(2); // Return total with two decimal places
-  };
-
-  const handleInputChange = (e) => {
-    setInputText(e.target.value);
-  };
-
-  return (
-    <div>
-      <TextareaAutosize type="text" value={inputText} onChange={handleInputChange} />
-      <button onClick={() => alert(`Total: $${calculateTotal()}`)}>
-        Calculate Total
-      </button>
-
-    </div>
-  );
-};
-
-// export default NumberAdder;
 
 
 

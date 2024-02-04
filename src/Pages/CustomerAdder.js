@@ -142,7 +142,7 @@ const Iimaan = () => {
 
   const [customers, setCustomers] = useState()
   const readUserCustomers = (id) => {
-    axios.get(`https://deentire-api-rj2w.onrender.com/api/v1/customers/get-customers-by-user/64e5cce0e22d3b6d2bd74800`, 
+    axios.get(`https://deentire-api-rj2w.onrender.com/api/v1/customers/get-customers-by-user/USERID`, 
     {
        headers: {
          'authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYjE5N2IzN2Y1ZjE2NzQxMDliZjIyYSIsImlhdCI6MTcwNDQ4ODU1NCwiZXhwIjoxNzA3MDgwNTU0fQ.K-iHFwhEG5rFN8PF6vsRDeQeo0XEj63vIu8pk_dSc7E"
@@ -156,7 +156,7 @@ const Iimaan = () => {
   }
   const createUserCustomers = (customer) => {
     console.log(customer)
-    axios.post(`https://deentire-api-rj2w.onrender.com/api/v1/customers`, 
+    axios.post(`https://deentire-api-rj2w.onrender.com/api/v1/custome`, 
    customer,
     {
        headers: {
